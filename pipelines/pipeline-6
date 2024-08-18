@@ -1,0 +1,30 @@
+pipeline{
+    agent any
+    environment {
+        INSTAGRAM="jpmvallej"
+    }
+    stages{
+        stage("Saludo1") {
+            steps{
+                echo "hola desde pipeline-6"
+            }
+        }
+        stage("saludo2"){
+            steps {
+                echo "hola desde saludo2,step1"
+                echo "hola desde saludo2,step2"
+            }
+        }
+        stage ("imprimir variable entorno"){
+            steps{
+                echo "imprimir ${env.INSTAGRAM}"
+                echo "$INSTAGRAM"
+                echo "${INSTAGRAM}"
+                echo "-------------------"
+                sh "echo 'hola mundo'"
+                sh "echo ${INSTAGRAM}"
+                sh "echo ${juanpasecreto}"
+            }
+        }
+    }
+}
