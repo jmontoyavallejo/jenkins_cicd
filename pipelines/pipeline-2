@@ -1,0 +1,57 @@
+pipeline{
+    agent any
+    parameters {
+        string(name:'apellido',description:'ingrese su apellido')
+        text(name:"biografia",description:"ingrese su biografia")
+        booleanParam(name:"booleano",description:"parametro boleano")
+        choice(name:"ciudades",choices:['cali','medellin','bogota'],description:"seleccione ciudad")
+        password(name:'contraseña',description:"ingrese su contraseña")
+    }
+    environment {
+        INSTAGRAM="jpmvallej"
+    }
+    stages{
+        stage("Saludo1") {
+            steps{
+                echo "hola desde saludo 1"
+            }
+        }
+        stage("saludo2"){
+            steps {
+                echo "hola desde saludo2,step1"
+                echo "hola desde saludo2,step2"
+            }
+        }
+        stage ("imprimir variable entorno"){
+            steps{
+                echo "imprimir ${env.INSTAGRAM}"
+                echo "$INSTAGRAM"
+                echo "${INSTAGRAM}"
+                echo "-------------------"
+                sh "echo 'hola mundo'"
+                sh "echo ${INSTAGRAM}"
+                sh "echo ${juanpasecreto}"
+            }
+        }
+        stage("cambio de valor") {
+            steps {
+                script {
+                    echo "${INSTAGRAM}"
+                    INSTAGRAM ="cambio de instagram"
+                    echo "${INSTAGRAM}"
+                }
+                
+            }
+        }
+        stage("imprimir parametros") {
+            steps {
+                echo "${params.apellido}"
+                echo "${booleano}"
+                echo "${apellido}"
+                echo "${biografia}"
+                echo "${ciudades}"
+                echo "${contraseña}"
+            }
+        }
+    }
+}
